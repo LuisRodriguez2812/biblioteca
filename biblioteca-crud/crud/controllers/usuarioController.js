@@ -12,7 +12,6 @@ exports.loginForm = (req, res) => {
 exports.login = async (req, res) => {
   try {
     const { email, contrasena } = req.body;
-
     // 1. Buscar usuario por email
     const usuario = await Usuario.encontrarPorEmail(email);
     if (!usuario) {
@@ -73,9 +72,6 @@ exports.registrarUsuario = async (req, res) => {
       });
     }
 
-    // Hashear la contraseña
-    const hashedPassword = await bcrypt.hash(contrasena, 10);
-
     // Crear nuevo usuario
     const nuevoUsuario = {
       nombre,
@@ -83,15 +79,15 @@ exports.registrarUsuario = async (req, res) => {
       email,
       telefono,
       direccion,
-      contrasena: hashedPassword,
+      contrasena,
       rol: 'usuario' // Por defecto
     };
-
+    
     await Usuario.crear(nuevoUsuario);
 
     // Autenticar al usuario automáticamente (opcional)
     const token = jwt.sign(
-      { id: nuevoUsuario.id, email: nuevoUsuario.email, rol: nuevoUsuario.rol },
+      {email: nuevoUsuario.email, rol: nuevoUsuario.rol },
       process.env.JWT_SECRET || 'secret_key',
       { expiresIn: '1h' }
     );
