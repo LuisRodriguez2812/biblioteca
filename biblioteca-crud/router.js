@@ -6,6 +6,7 @@ const { isAuthenticated, isAdmin } = require('../biblioteca-crud/crud/middleware
 // Middleware de autenticación (usando JWT)
 function verificarAutenticacion(req, res, next) {
   const token = req.cookies.token;
+
   if (!token) {
     req.flash('error', 'Debes iniciar sesión para acceder.');
     return res.redirect('/visitante/login'); // Redirige a la vista de login en visitante
@@ -22,6 +23,7 @@ function verificarAutenticacion(req, res, next) {
 
 // Middleware de autorización de administrador
 function esAdmin(req, res, next) {
+
   if (req.usuario && req.usuario.rol === 'admin') {
     return next();
   }

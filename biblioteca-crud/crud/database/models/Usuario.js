@@ -15,8 +15,14 @@ class Usuario {
 
   // Método para encontrar un usuario por email
   static async encontrarPorEmail(email) {
-    const [rows] = await pool.execute('SELECT * FROM usuarios WHERE email = ?', [email]);
-    return rows[0];
+
+    try {
+      const [rows] = await pool.execute('SELECT * FROM usuarios WHERE email = ?', [email]);
+
+      return rows[0];
+    } catch (error) {
+      console.error('Error al encontrar usuario por email:', error);
+    }
   }
 
   // Método para comparar la contraseña
