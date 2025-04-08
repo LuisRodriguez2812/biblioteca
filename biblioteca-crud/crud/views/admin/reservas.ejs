@@ -1,0 +1,41 @@
+<%- include('../partials/header') %>
+<div class="container mt-4">
+  <h1 class="text-center mb-4">Gestión de Reservas</h1>
+
+  <div class="mb-3 text-end">
+    <a href="/admin/reservas/crear" class="btn btn-success">Registrar Nueva Reserva</a>
+  </div>
+
+  <table class="table table-bordered table-hover bg-white shadow-sm">
+    <thead class="table-dark">
+      <tr>
+        <th>ID</th>
+        <th>Libro</th>
+        <th>Usuario</th>
+        <th>Fecha de Reserva</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% reservas.forEach(reserva => { %>
+        <tr>
+          <td><%= reserva.id %></td>
+          <td><%= reserva.libro.titulo %></td>
+          <td><%= reserva.usuario.nombre %></td>
+          <td><%= reserva.fecha_reserva %></td>
+          <td><%= reserva.estado %></td>
+          <td>
+            <a href="/admin/reservas/<%= reserva.id %>" class="btn btn-sm btn-info">Ver</a>
+            <a href="/admin/reservas/editar/<%= reserva.id %>" class="btn btn-sm btn-warning">Editar</a>
+            <form action="/admin/reservas/eliminar/<%= reserva.id %>" method="POST" class="d-inline">
+              <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Seguro que deseas eliminar esta reserva?');">Eliminar</button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+
+<%- include('../partials/footer') %>

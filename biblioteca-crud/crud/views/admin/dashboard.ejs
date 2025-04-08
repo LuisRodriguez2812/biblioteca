@@ -1,0 +1,56 @@
+<%- include('../partials/header') %>
+<div class="container-fluid">
+  <div class="row">
+    <%- include('/partials/header') %>
+
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Dashboard</h1>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-4 mb-4">
+          <div class="card bg-primary text-white">
+            <div class="card-body">
+              <h5 class="card-title">Libros</h5>
+              <p class="card-text">Número total de libros: <%= totalLibros %></p>
+              <a href="/admin/libros" class="btn btn-light">Ver Libros</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 mb-4">
+          <div class="card bg-success text-white">
+            <div class="card-body">
+              <h5 class="card-title">Préstamos</h5>
+              <p class="card-text">Número de préstamos activos: <%= prestamosActivos %></p>
+              <a href="/admin/prestamos" class="btn btn-light">Ver Préstamos</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 mb-4">
+          <div class="card bg-warning text-white">
+            <div class="card-body">
+              <h5 class="card-title">Reservas</h5>
+              <p class="card-text">Número de reservas pendientes: <%= reservasPendientes %></p>
+              <a href="/admin/reservas" class="btn btn-light">Ver Reservas</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-4 mb-4">
+          <div class="card bg-info text-white">
+            <div class="card-body">
+              <h5 class="card-title">Usuarios</h5>
+              <p class="card-text">Número de usuarios registrados: <%= totalUsuarios %></p>
+              <a href="/admin/usuarios" class="btn btn-light">Ver Usuarios</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

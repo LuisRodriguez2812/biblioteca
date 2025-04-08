@@ -1,0 +1,46 @@
+<%- include('../partials/header') %>
+<div class="container mt-4">
+  <h1 class="text-center mb-4">Lista de Préstamos</h1>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ISBN</th>
+        <th>Libro</th>
+        <th>Categoría</th>
+        <th>Usuario</th>
+        <th>Fecha Inicio</th>
+        <th>Fecha Fin</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% prestamos.forEach(prestamo => { %>
+        <tr>
+          <td><%= prestamo.ISBN %></td>
+          <td><%= prestamo.titulo_libro %></td>
+          <td><%= prestamo.categoria %></td>
+          <td><%= prestamo.nombre_usuario %></td>
+          <td><%= prestamo.fecha_inicio.toLocaleDateString() %></td>
+          <td><%= prestamo.fecha_fin.toLocaleDateString() %></td>
+          <td><%= prestamo.estado %></td>
+          <td>
+            <% if (prestamo.estado === 'activo') { %>
+              <form action="/prestamos/devolver/<%= prestamo.id %>" method="POST" style="display:inline;">
+                <button type="submit" class="btn btn-danger btn-sm">Devolver</button>
+              </form>
+            <% } %>
+            <a href="/prestamos/editar/<%= prestamo.id %>" class="btn btn-warning btn-sm">Editar</a>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+
+  <div class="text-end mt-3">
+    <a href="/prestamos/crear" class="btn btn-success">➕ Crear Préstamo</a>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,43 @@
+<%- include('../partials/header') %>
+<div class="container mt-4">
+  <h1 class="text-center mb-4">Stock de Libros</h1>
+
+  <div class="mb-3 text-end">
+    <a href="/libros/crear" class="btn btn-success">Registrar Nuevo Libro</a>
+  </div>
+
+  <table class="table table-bordered table-hover bg-white shadow-sm">
+    <thead class="table-dark">
+      <tr>
+        <th>ID</th>
+        <th>Título</th>
+        <th>Autor</th>
+        <th>ISBN</th>
+        <th>Stock</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% libros.forEach(libro => { %>
+        <tr>
+          <td><%= libro.id %></td>
+          <td><%= libro.titulo %></td>
+          <td><%= libro.autor %></td>
+          <td><%= libro.ISBN %></td>
+          <td><%= libro.stock %></td>
+          <td><%= libro.estado %></td>
+          <td>
+            <a href="/libros/<%= libro.id %>" class="btn btn-sm btn-info">Ver</a>
+            <a href="/libros/editar/<%= libro.id %>" class="btn btn-sm btn-warning">Editar</a>
+            <form action="/libros/eliminar/<%= libro.id %>" method="POST" class="d-inline">
+              <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Seguro que deseas eliminar este libro?');">Eliminar</button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+
+<%- include('../partials/footer') %>

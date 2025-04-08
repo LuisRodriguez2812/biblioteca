@@ -1,0 +1,276 @@
+/* Asegurar que el footer siempre esté al final */
+html, body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  flex: 1; /* Hace que el contenido principal ocupe el espacio restante */
+}
+
+/* Alineación central y espaciado de la página */
+.container {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Navbar */
+.navbar {
+  background-color: #007bff;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.navbar-nav {
+  display: flex;
+  gap: 15px;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.3s;
+}
+
+.nav-link:hover {
+  color: #dfe6f1;
+}
+
+
+
+/* Estilos para los formularios */
+.custom-input {
+  border-radius: 8px;
+  border: 1px solid #ced4da;
+  padding: 10px;
+  font-size: 1rem;
+  transition: all 0.3s ease-in-out;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.custom-input:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Botones */
+.custom-btn, .custom-btn-secondary {
+  padding: 14px 30px;
+  border-radius: 8px;
+  border: none;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+  margin: 10px;
+}
+
+.custom-btn {
+  background-color: #007bff;
+  color: white;
+}
+
+.custom-btn:hover {
+  background-color: #0056b3;
+}
+
+.custom-btn-secondary {
+  background-color: #6c757d;
+  color: white;
+}
+
+.custom-btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+/* Separación entre botones */
+.form-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+}
+
+/* Espaciado entre campos del formulario */
+.form-group {
+  margin-bottom: 20px;
+}
+
+/* Estilos para la tabla */
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.custom-table thead {
+  background-color: #007bff;
+  color: white;
+}
+
+.custom-table th, .custom-table td {
+  padding: 12px;
+  text-align: center;
+  vertical-align: middle;
+  border-bottom: 1px solid #ddd;
+}
+
+.custom-table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Espaciado entre elementos de la tabla */
+.d-flex {
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+/* Estilos para los botones de Editar y Eliminar */
+.action-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.action-buttons a, .action-buttons button {
+  background-color: #007bff;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+  border: none;
+  cursor: pointer;
+}
+
+.action-buttons a:hover, .action-buttons button:hover {
+  background-color: #0056b3;
+}
+
+/* Estilos para los botones de Nuevo Libro y Reserva */
+.navbar-nav .nav-link {
+  text-decoration: none;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #dfe6f1;
+}
+
+/* Estilos para la tabla */
+.custom-table {
+  width: 100%;
+  max-width: 1200px; /* Ajusta este valor según tus necesidades */
+  border-collapse: collapse;
+  margin-top: 25px;
+  border: 5px solid #007bff;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.custom-table thead {
+  background-color: #007bff;
+  color: white;
+}
+
+.custom-table th, .custom-table td {
+  padding: 12px;
+  text-align: center;
+  vertical-align: middle;
+  border-bottom: 1px solid #ddd;
+}
+
+.custom-table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.custom-table .isbn-cell {
+  width: 15%;
+}
+
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+  padding: 40px;
+}
+
+footer {
+  background-color: #343a40;
+  color: white;
+  padding: 40px 0;
+  text-align: center;
+  margin-top: auto; /* Empuja el footer hacia abajo */
+  width: 100%;
+}
+
+footer p {
+  margin: 0;
+  font-size: 14px;
+}
+
+footer a {
+  color: white;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* Diseño adaptable */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 10px;
+  }
+
+  .custom-card {
+    width: 100%;
+    padding: 20px;
+  }
+
+  .card-title {
+    font-size: 1.5rem;
+  }
+
+  .card-subtitle {
+    font-size: 1rem;
+  }
+
+  .navbar {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .navbar-nav {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 576px) {
+  .form-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .custom-btn, .custom-btn-secondary {
+    width: 100%;
+  }
+}

@@ -1,0 +1,68 @@
+<%- include('../partials/header') %>
+<div class="container mt-4">
+  <h1 class="text-center mb-4">Editar Préstamo</h1>
+
+  <form action="/prestamos/actualizar/<%= prestamo.id %>" method="POST">
+    <div class="form-group mb-3">
+      <label>Libro</label>
+      <select name="libroId" class="form-control" required>
+        <% libros.forEach(libro => { %>
+          <option value="<%= libro.id %>" <%= libro.id === prestamo.libro_id ? 'selected' : '' %>><%= libro.titulo %></option>
+        <% }) %>
+      </select>
+    </div>
+
+    <div class="form-group mb-3">
+      <label>Usuario</label>
+      <select name="usuarioId" class="form-control" required>
+        <% usuarios.forEach(usuario => { %>
+          <option value="<%= usuario.id %>" <%= usuario.id === prestamo.usuario_id ? 'selected' : '' %>><%= usuario.nombre %></option>
+        <% }) %>
+      </select>
+    </div>
+
+    <div class="form-group mb-3">
+      <label>Fecha de Inicio</label>
+      <input type="date" name="fechaInicio" class="form-control" value="<%= prestamo.fecha_inicio.toISOString().split('T')[0] %>" required>
+    </div>
+
+    <div class="form-group mb-3">
+      <label>Fecha de Fin</label>
+      <input type="date" name="fechaFin" class="form-control" value="<%= prestamo.fecha_fin.toISOString().split('T')[0] %>" required>
+    </div>
+
+    <div class="form-group mb-3">
+      <label>Estado</label>
+      <select name="estado" class="form-control" required>
+        <option value="activo" <%= prestamo.estado === 'activo' ? 'selected' : '' %>>Activo</option>
+        <option value="completado" <%= prestamo.estado === 'completado' ? 'selected' : '' %>>Completado</option>
+        <option value="reservado" <%= prestamo.estado === 'reservado' ? 'selected' : '' %>>Reservado</option>
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Actualizar</button>
+    <a href="/prestamos" class="btn btn-secondary">Cancelar</a>
+  </form>
+</div>
+
+<%- include('../partials/footer') %>
+
+<script>
+  document.querySelector('form').addEventListener('submit', function (event) {
+    const libroId = document.querySelector('[name="libroId"]').value;
+    const usuarioId = document.querySelector('[name="usuarioId"]').value;
+    const fechaInicio = new Date(document.querySelector('[name="fechaInicio"]').value);
+    const fechaFin = new Date(document.querySelector('[name="fechaFin"]').value);
+
+    if (!libroId || !usuarioId) {
+      alert('Por favor seleccione un libro y un usuario.');
+      event.preventDefault();
+      return;
+    }
+
+    if (fechaInicio > fechaFin) {
+      alert('La fecha de inicio no puede ser posterior a la fecha de fin.');
+      event.preventDefault();
+    }
+  });
+</script>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Biblioteca - Área de Cliente</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+  <%- include('../partials/header') %>
+  <div class="container my-5">
+    <h1>Bienvenido al Área de Cliente</h1>
+    <% if (usuario) { %>
+      <p>Hola, <strong><%= usuario.nombre %> <%= usuario.apellido %></strong> (<%= usuario.email %>)</p>
+    <% } %>    
+    <p>Desde aquí podrás acceder a las siguientes funcionalidades:</p>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5 class="card-title">Catálogo de Libros</h5>
+            <p class="card-text">Consulta el catálogo de libros disponibles.</p>
+            <a href="/stock-libros" class="btn btn-primary">Ver Catálogo</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5 class="card-title">Historial de Préstamos</h5>
+            <p class="card-text">Revisa tu historial de préstamos de libros.</p>
+            <a href="/historial/prestamos-usuario" class="btn btn-primary">Ver Historial</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5 class="card-title">Historial de Reservas</h5>
+            <p class="card-text">Consulta tu historial de reservas de libros.</p>
+            <a href="/historial/reservas" class="btn btn-primary">Ver Historial</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%- include('../partials/footer') %>
+</body>
+</html>

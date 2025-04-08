@@ -1,0 +1,43 @@
+<%- include('../partials/header') %>
+<div class="container mt-4">
+  <h1 class="text-center mb-4">Gestión de Préstamos</h1>
+
+  <div class="mb-3 text-end">
+    <a href="/admin/prestamos/crear" class="btn btn-success">Registrar Nuevo Préstamo</a>
+  </div>
+
+  <table class="table table-bordered table-hover bg-white shadow-sm">
+    <thead class="table-dark">
+      <tr>
+        <th>ID</th>
+        <th>Libro</th>
+        <th>Usuario</th>
+        <th>Fecha de Préstamo</th>
+        <th>Fecha de Devolución</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% prestamos.forEach(prestamo => { %>
+        <tr>
+          <td><%= prestamo.id %></td>
+          <td><%= prestamo.libro.titulo %></td>
+          <td><%= prestamo.usuario.nombre %></td>
+          <td><%= prestamo.fecha_prestamo %></td>
+          <td><%= prestamo.fecha_devolucion %></td>
+          <td><%= prestamo.estado %></td>
+          <td>
+            <a href="/admin/prestamos/<%= prestamo.id %>" class="btn btn-sm btn-info">Ver</a>
+            <a href="/admin/prestamos/editar/<%= prestamo.id %>" class="btn btn-sm btn-warning">Editar</a>
+            <form action="/admin/prestamos/eliminar/<%= prestamo.id %>" method="POST" class="d-inline">
+              <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Seguro que deseas eliminar este préstamo?');">Eliminar</button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+
+<%- include('../partials/footer') %>

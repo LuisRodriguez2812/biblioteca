@@ -1,0 +1,83 @@
+<%- include('../partials/header') %>
+<div class="container mt-4">
+  <h1 class="text-center mb-4">Crear Reserva</h1>
+
+  <% if (typeof error !== 'undefined' && error.length > 0) { %>
+    <div class="alert alert-danger"><%= error %></div>
+  <% } %>
+
+  <% if (typeof success !== 'undefined' && success.length > 0) { %>
+    <div class="alert alert-success"><%= success %></div>
+  <% } %>
+
+  <form action="/reservas" method="POST" id="reserva-form">
+    <!-- Libro -->
+    <div class="form-group mb-3">
+      <label class="form-label">Libro</label>
+      <select name="libroId" id="libroSelect" class="form-control" required>
+        <option value="">Seleccione un libro</option>
+        <% libros.forEach(libro => { %>
+          <option value="<%= libro.id %>" data-isbn="<%= libro.ISBN %>" data-categoria="<%= libro.categoria %>" data-autor="<%= libro.autor %>">
+            <%= libro.titulo %>
+          </option>
+        <% }) %>
+      </select>
+    </div>
+
+    <!-- ISBN -->
+    <div class="form-group mb-3">
+      <label class="form-label">ISBN</label>
+      <input type="text" id="isbn" name="ISBN" class="form-control" readonly>
+    </div>
+
+    <!-- Categoría -->
+    <div class="form-group mb-3">
+      <label class="form-label">Categoría</label>
+      <input type="text" id="categoria" name="categoria" class="form-control" readonly>
+    </div>
+
+    <!-- Autor -->
+    <div class="form-group mb-3">
+      <label class="form-label">Autor</label>
+      <input type="text" id="autor" name="autor" class="form-control" readonly>
+    </div>
+
+    <!-- Usuario -->
+    <input type="hidden" name="usuarioId" value="<%= usuario.id %>">
+
+    <div class="form-group mb-3">
+      <label class="form-label">Nombre</label>
+      <input type="text" class="form-control" value="<%= usuario.nombre %>" readonly>
+    </div>
+
+    <div class="form-group mb-3">
+      <label class="form-label">Apellido</label>
+      <input type="text" class="form-control" value="<%= usuario.apellido %>" readonly>
+    </div>
+
+    <!-- Fecha -->
+    <div class="form-group mb-3">
+      <label class="form-label">Fecha de recojo</label>
+      <input type="date" name="fecha_inicio" class="form-control" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Crear Reserva</button>
+  </form>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const libroSelect = document.getElementById("libroSelect");
+    const isbnInput = document.getElementById("isbn");
+    const categoriaInput = document.getElementById("categoria");
+    const autorInput = document.getElementById("autor");
+
+    libroSelect.addEventListener("change", function () {
+      const selected = this.options[this.selectedIndex];
+      isbnInput.value = selected.getAttribute("data-isbn") || "";
+      categoriaInput.value = selected.getAttribute("data-categoria") || "";
+      autorInput.value = selected.getAttribute("data-autor") || "";
+    });
+  });
+</script>
+<%- include('../partials/footer') %>

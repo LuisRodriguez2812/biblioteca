@@ -1,0 +1,89 @@
+<%- include('../partials/header') %>
+<div class="container mt-4">
+  <h1 class="text-center mb-4">Registrar Préstamo</h1>
+
+  <div class="card shadow-lg">
+    <div class="card-body">
+      <form id="prestamo-form" action="/prestamos/crear" method="POST">
+        
+        <!-- Libro -->
+        <div class="form-group mb-3">
+          <label class="form-label">Libro</label>
+          <select id="libroSelect" name="libroId" class="form-control" required>
+            <option value="">Seleccione un libro</option>
+            <% libros.forEach(libro => { %>
+              <option 
+                value="<%= libro.id %>" 
+                data-titulo="<%= libro.titulo %>" 
+                data-isbn="<%= libro.ISBN || libro.isbn || 'Desconocido' %>"
+                data-autor="<%= libro.autor %>">
+                <%= libro.titulo %>
+              </option>
+            <% }) %>
+          </select>
+        </div>
+
+        <!-- Título e ISBN -->
+        <div class="form-group mb-3">
+          <label class="form-label">Título del Libro</label>
+          <input type="text" id="tituloLibro" class="form-control" readonly>
+        </div>
+
+        <div class="form-group mb-3">
+          <label class="form-label">ISBN</label>
+          <input type="text" id="isbnLibro" class="form-control" readonly>
+        </div>
+
+        <div class="form-group mb-3">
+          <label class="form-label">Autor</label>
+          <input type="text" id="autorLibro" class="form-control" readonly>
+        </div>
+
+        <!-- Usuario -->
+        <input type="hidden" name="usuarioId" value="<%= usuario.id %>">
+
+        <div class="form-group mb-3">
+          <label class="form-label">Nombre</label>
+          <input type="text" class="form-control" value="<%= usuario.nombre %>" readonly>
+        </div>
+
+        <div class="form-group mb-3">
+          <label class="form-label">Apellido</label>
+          <input type="text" class="form-control" value="<%= usuario.apellido %>" readonly>
+        </div>
+
+        <!-- Fechas -->
+        <div class="form-group mb-3">
+          <label class="form-label">Fecha de Inicio</label>
+          <input type="date" name="fechaInicio" class="form-control" required>
+        </div>
+
+        <div class="form-group mb-3">
+          <label class="form-label">Fecha de Devolución</label>
+          <input type="date" name="fechaFin" class="form-control" required>
+        </div>
+
+        <div class="d-flex justify-content-between">
+          <button type="submit" class="btn btn-success">Registrar Préstamo</button>
+          <a href="/prestamos" class="btn btn-secondary">Cancelar</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  const libroSelect = document.getElementById('libroSelect');
+  const tituloLibro = document.getElementById('tituloLibro');
+  const isbnLibro = document.getElementById('isbnLibro');
+  const autorLibro = document.getElementById('autorLibro');
+
+  libroSelect.addEventListener('change', function() {
+    const selected = this.options[this.selectedIndex];
+    tituloLibro.value = selected.getAttribute('data-titulo') || '';
+    isbnLibro.value = selected.getAttribute('data-isbn') || '';
+    autorLibro.value = selected.getAttribute('data-autor') || '';
+  });
+</script>
+
+<%- include('../partials/footer') %>

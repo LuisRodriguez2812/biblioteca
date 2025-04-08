@@ -1,0 +1,29 @@
+<!-- historial-prestamos-usuario.ejs -->
+
+<%- include('../partials/header') %>
+<div class="container">
+    <h1 class="mb-4">Historial de Préstamos</h1>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Libro</th>
+            <th>Fecha de Préstamo</th>
+            <th>Fecha de Devolución</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% prestamos.forEach(prestamo => { %>
+          <tr>
+            <td><%= prestamo.libro.titulo %></td>
+            <td><%= prestamo.fechaPrestamo.toLocaleDateString() %></td>
+            <td><%= prestamo.fechaDevolucion.toLocaleDateString() %></td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+    <%- include('../partials/footer') %>
+
+  </div>
+  

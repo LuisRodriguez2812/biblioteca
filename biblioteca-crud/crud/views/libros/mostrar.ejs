@@ -1,0 +1,32 @@
+<%- include('../partials/header') %>
+<div class="container mt-4">
+  <h1 class="text-center mb-4">Detalles del Libro</h1>
+
+  <div class="card shadow-lg p-4">
+    <h3 class="text-center"><%= libro.titulo %></h3>
+    <h5 class="text-muted text-center mb-3"><%= libro.autor %></h5>
+
+    <p>
+      <strong>ISBN:</strong> <%= libro.ISBN %><br>
+      <strong>Estado:</strong> <%= libro.estado %><br>
+      <% if (libro.categoria) { %>
+        <strong>Categoría:</strong> <%= libro.categoria %><br>
+      <% } %>
+      <strong>Stock:</strong> <%= libro.stock %>
+    </p>
+
+    <div class="form-group mt-3">
+      <label><strong>Descripción:</strong></label>
+      <textarea class="form-control" rows="5" readonly>
+Este es un libro titulado "<%= libro.titulo %>", escrito por <%= libro.autor %>. Actualmente está <%= libro.estado %> y forma parte de la categoría <%= libro.categoria || 'Sin categoría' %>.
+      </textarea>
+    </div>
+
+    <div class="d-flex justify-content-between mt-4">
+      <a href="/libros/editar/<%= libro.id %>" class="btn btn-primary">Editar</a>
+      <a href="/libros" class="btn btn-secondary">Volver</a>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,32 @@
+<!-- historial-reservas-usuarios.ejs -->
+
+<%- include('../partials/header') %>
+<div class="container">
+  <h1 class="mb-4">Historial de Reservas</h1>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Libro</th>
+          <th>Fecha de Reserva</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% reservas.forEach(reserva => { %>
+          <tr>
+            <td><%= reserva.libro.titulo %></td>
+            <td><%= reserva.fecha_inicio.toLocaleDateString() %></td>
+            <td>
+              <form action="/reservas/cancelar/<%= reserva.id %>" method="POST" style="display:inline;">
+                <button class="btn btn-danger btn-sm">Cancelar</button>
+              </form>
+              <a href="/prestamos/nuevo?desdeReserva=<%= reserva.id %>" class="btn btn-success btn-sm ms-2">Pasar a Préstamo</a>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<%- include('../partials/footer') %>

@@ -1,0 +1,120 @@
+<%- include('../partials/header') %>
+<div class="container mt-4">
+  <h1 class="text-center mb-4">Registrar Nuevo Préstamo</h1>
+
+  <div class="card custom-card shadow-lg border-0 rounded-lg">
+    <div class="card-body">
+      <form id="prestamo-form" action="/prestamos/crear" method="POST">
+        
+        <!-- Selección del libro -->
+        <div class="form-group mb-3">
+          <label class="form-label">Seleccione un libro</label>
+          <select id="libroSelect" name="libroId" class="form-control custom-input" required>
+            <option value="">Seleccione un libro</option>
+            <% libros.forEach(libro => { %>
+              <option 
+                value="<%= libro.id %>" 
+                data-titulo="<%= libro.titulo %>" 
+                data-isbn="<%= libro.ISBN || libro.isbn || 'Desconocido' %>">
+                <%= libro.titulo %>
+              </option>
+            <% }) %>
+          </select>
+        </div>
+
+        <!-- Campos separados para Título e ISBN -->
+        <div class="form-group mb-3">
+          <label class="form-label">Título del Libro</label>
+          <input type="text" id="tituloLibro" class="form-control custom-input" readonly>
+        </div>
+
+        <div class="form-group mb-3">
+          <label class="form-label">ISBN</label>
+          <input type="text" id="isbnLibro" class="form-control custom-input" readonly>
+        </div>
+
+        <hr>
+        <h5>Datos del Usuario</h5>
+
+        <div class="form-group mb-3">
+          <label class="form-label">Nombre</label>
+          <input type="text" name="nombre" class="form-control custom-input" required>
+        </div>
+
+        <div class="form-group mb-3">
+          <label class="form-label">Apellido</label>
+          <input type="text" name="apellido" class="form-control custom-input" required>
+        </div>
+
+        <div class="form-group mb-3">
+          <label class="form-label">Teléfono</label>
+          <input type="text" name="telefono" class="form-control custom-input" required>
+        </div>
+
+        <div class="form-group mb-3">
+          <label class="form-label">Dirección</label>
+          <input type="text" name="direccion" class="form-control custom-input" required>
+        </div>
+
+        <hr>
+        <h5>Fechas del Préstamo</h5>
+
+        <div class="form-group mb-3">
+          <label class="form-label">Fecha de Inicio</label>
+          <input type="date" name="fechaInicio" class="form-control custom-input" required>
+        </div>
+
+        <div class="form-group mb-3">
+          <label class="form-label">Fecha de Devolución</label>
+          <input type="date" name="fechaFin" class="form-control custom-input" required>
+        </div>
+
+        <div class="d-flex justify-content-between">
+          <button type="submit" class="btn custom-btn">Registrar Préstamo</button>
+          <a href="/prestamos" class="btn custom-btn-secondary">Cancelar</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  document.getElementById('libroSelect').addEventListener('change', function() {
+    const selectedOption = this.options[this.selectedIndex];
+    const titulo = selectedOption.getAttribute('data-titulo') || '';
+    const isbn = selectedOption.getAttribute('data-isbn') || 'Desconocido';
+    document.getElementById('tituloLibro').value = titulo;
+    document.getElementById('isbnLibro').value = isbn;
+  });
+
+  document.getElementById('prestamo-form').addEventListener('submit', (event) => {
+    const requiredFields = ['nombre', 'apellido', 'telefono', 'direccion', 'fechaInicio', 'fechaFin'];
+    let valid = true;
+
+    if (!document.getElementById('libroSelect').value) {
+      valid = false;
+    }
+
+    requiredFields.forEach(name => {
+      const field = document.querySelector(`[name="${name}"]`);
+      if (!field.value.trim()) valid = false;
+    });
+
+    const fechaInicio = new Date(document.querySelector('[name="fechaInicio"]').value);
+    const fechaFin = new Date(document.querySelector('[name="fechaFin"]').value);
+
+    if (fechaInicio > fechaFin) {
+      alert('La fecha de inicio no puede ser posterior a la fecha de fin.');
+      event.preventDefault();
+      return;
+    }
+
+    if (!valid) {
+      alert('Por favor complete todos los campos.');
+      event.preventDefault();
+    }
+  });
+</script>
+<%- include('../partials/footer') %>
+

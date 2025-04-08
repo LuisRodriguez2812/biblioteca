@@ -1,0 +1,118 @@
+<%- include('../partials/header') %>
+<div class="container mt-4">
+  <h1 class="text-center mb-4">Crear Reserva</h1>
+
+  <% if (typeof error !== 'undefined' && error.length > 0) { %>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <%= error %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% } %>
+
+  <% if (typeof success !== 'undefined' && success.length > 0) { %>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <%= success %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% } %>
+
+  <form action="/reservas" method="POST">
+    <!-- Selección de Libro -->
+    <div class="form-group mb-4">
+      <label class="form-label">Libro</label>
+      <select name="libroId" id="libroSelect" class="form-control" required>
+        <option value="">Seleccione un libro</option>
+        <% libros.forEach(libro => { %>
+          <option value="<%= libro.id %>" data-isbn="<%= libro.ISBN %>" data-categoria="<%= libro.categoria %>">
+            <%= libro.titulo %>
+          </option>
+        <% }) %>
+      </select>
+    </div>
+
+    <!-- ISBN y Categoría (readonly) -->
+    <div class="form-group mb-4">
+      <label class="form-label">ISBN</label>
+      <input type="text" id="isbn" name="ISBN" class="form-control" readonly required>
+    </div>
+
+    <div class="form-group mb-4">
+      <label class="form-label">Categoría</label>
+      <input type="text" id="categoria" name="categoria" class="form-control" readonly>
+    </div>
+
+    <!-- Selección de Persona o ingreso de nueva -->
+    <div class="form-group mb-4">
+      <label class="form-label">Seleccionar Persona</label>
+      <select name="personaId" id="personaSelect" class="form-control">
+        <option value="">-- Seleccionar persona existente --</option>
+        <% personas.forEach(persona => { %>
+          <option value="<%= persona.id %>"><%= persona.nombre %> <%= persona.apellido %></option>
+        <% }) %>
+        <option value="nueva">Registrar nueva persona</option>
+      </select>
+    </div>
+
+    <!-- Campos para nueva persona (solo visibles si se selecciona 'nueva') -->
+    <div id="nuevaPersonaFields" style="display: none;">
+      <div class="form-group mb-4">
+        <label class="form-label">Nombre</label>
+        <input type="text" name="nombre" class="form-control">
+      </div>
+
+      <div class="form-group mb-4">
+        <label class="form-label">Apellido</label>
+        <input type="text" name="apellido" class="form-control">
+      </div>
+
+      <div class="form-group mb-4">
+        <label class="form-label">Teléfono</label>
+        <input type="tel" name="telefono" class="form-control" pattern="[0-9]{9,15}" title="Debe contener entre 9 y 15 dígitos">
+      </div>
+
+      <div class="form-group mb-4">
+        <label class="form-label">Dirección</label>
+        <input type="text" name="direccion" class="form-control">
+      </div>
+    </div>
+
+    <!-- Fecha de reserva -->
+    <div class="form-group mb-4">
+      <label class="form-label">Fecha de reserva</label>
+      <input type="date" name="fecha_inicio" class="form-control" required>
+    </div>
+
+    <!-- Botón -->
+    <button type="submit" class="btn btn-primary">Crear Reserva</button>
+  </form>
+</div>
+
+<!-- Scripts -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const libroSelect = document.getElementById("libroSelect");
+    const isbnInput = document.getElementById("isbn");
+    const categoriaInput = document.getElementById("categoria");
+    const personaSelect = document.getElementById("personaSelect");
+    const nuevaPersonaFields = document.getElementById("nuevaPersonaFields");
+
+    // Auto-rellenar ISBN y Categoría al elegir libro
+    libroSelect.addEventListener("change", function () {
+      const selectedOption = this.options[this.selectedIndex];
+      isbnInput.value = selectedOption.getAttribute("data-isbn") || "";
+      categoriaInput.value = selectedOption.getAttribute("data-categoria") || "";
+    });
+
+    // Mostrar campos de nueva persona solo si se selecciona "nueva"
+    personaSelect.addEventListener("change", function () {
+      nuevaPersonaFields.style.display = this.value === 'nueva' ? 'block' : 'none';
+
+      // Si no es nueva, limpia los campos
+      if (this.value !== 'nueva') {
+        nuevaPersonaFields.querySelectorAll('input').forEach(input => input.value = '');
+      }
+    });
+  });
+</script>
+
+<%- include('../partials/footer') %>
